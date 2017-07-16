@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>vue demo1</title>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <praise title="赞↑" pclass="btn btn-success"></praise>
+        <praise title="踩↓" pclass="btn btn-danger"></praise>
+    </div>
+    <template id="m-praise">
+        <div>
+            <h1>{{title}}</h1>
+            <input v-on:click="updateData" type="button" :class="pclass" :value="count" />
+        </div>
+    </template>
+    <script type="text/javascript">
+    Vue.component("praise", {
+    	props: ["title", "pclass"],
+        "template": "#m-praise",
+        data: function(){
+        	return {
+        		count: 0
+        	}
+        },
+        methods: {
+        	updateData: function(){
+        		this.count++;
+        	}
+        }
+    })
+    new Vue({
+        el: '#app'
+
+    })
+    </script>
+</body>
+
+</html>
