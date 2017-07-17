@@ -1,2 +1,2 @@
 # vue-demos
-some demo based on vue
+some demos based on vue
