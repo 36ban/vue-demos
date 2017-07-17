@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../vue.js"></script>
+    <style>
+    ul li {
+        cursor: pointer;
+    }
+
+    .done {
+        text-decoration: line-through;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <task :items="tasks"></task>
+    </div>
+    <template id="task-template">
+	    <div>
+	    	<p>
+				<span>还剩几个</span>
+				<span v-show="remain">({{ remain }})</span>
+			</p>
+	        <ul>
+	            <li :class="{'done': task.completed}" v-for="(task, index) in items" @click="clickAction(task)">
+	                {{ task.content }}
+	                <span @click="deleteTask(index)">×</span>
+	            </li>
+	        </ul>
+	    </div>
+		
+    </template>
+    <script type="text/javascript">
+    Vue.component("task", {
+        template: "#task-template",
+        props: ['items'],
+        methods: {
+            clickAction: function(ts) {
+                ts.completed = !ts.completed;
+            },
+            deleteTask: function(idx) {
+                Vue.delete(this.items, idx);
+            }
+            
+        },
+        computed: {
+            	remain: function(){
+            		return this.items.filter(function(task){
+            			return !task.completed;
+            		}).length;
+            	}
+            }
+
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            tasks: [{
+                content: "看电影",
+                completed: false
+            }, {
+                content: "打篮球",
+                completed: false
+            }, {
+                content: "写代码",
+                completed: false
+            }]
+        },
+
+    })
+    </script>
+</body>
+
+</html>

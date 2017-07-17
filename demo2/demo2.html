@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	 <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		姓<input type="text" v-model="firstname" name="">
+		名<input type="text" v-model="lastname" name="">
+		<br/>
+		<span>{{ username }}</span>
+	</div>
+
+<script type="text/javascript">
+	new Vue({
+		el: "#app",
+		data: {
+			firstname: "code",
+			lastname: "man"
+		},
+		computed: {
+			username: function(){
+				return "全名为[" + this.firstname + this.lastname + "]";
+			}
+		}
+	})
+</script>
+</body>
+</html>
