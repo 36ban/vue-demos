@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>动画</title>
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/velocity/1.5.0/velocity.js"></script>
+    <script src="../vue.js"></script>
+    <style>
+    /*transition动画,淡入淡出*/
+    /*.ani-enter, .ani-leave-active{
+	 		opacity: 0;
+	 	}
+	 	.ani-enter-active, .ani-leave-active{
+	 		transition: opacity .5s;
+	 	}*/
+    /*animation动画,缩放*/
+    /*.ani-enter-active{
+			animation: scale-in 0.5s;
+		}
+
+		.ani-leave-active{
+			animation: scale-out 0.5s;
+		}
+
+		@keyframes scale-in{
+			0%{
+				transform: scale(0);
+			}
+			50%{
+				transform: scale(2);
+			}
+			100%{
+				transform: scale(1);
+			}
+		}
+		
+		@keyframes scale-out{
+			0%{
+				transform: scale(1);
+			}
+			50%{
+				transform: scale(2);
+			}
+			100%{
+				transform: scale(0);
+			}
+		}*/
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="show = !show">
+            Toggle
+        </button>
+        <!-- transition动画 -->
+        <!-- <transition name="ani">
+			<p v-if="show">
+				Hello transition
+			</p>
+		</transition> -->
+
+        <!-- 自定义动画，借用animate.css动画库 -->
+        <!-- <transition name="custom-classes-transition"
+		 enter-active-class="animated bounce" leave-active-class="animated flash">
+			<p v-if="show">
+				Hello transition
+			</p>
+		</transition> -->
+
+        <!-- 第三方库velocity.js动画, 使用钩子函数 -->
+        <transition @before-enter="beforeEnter" v-bind:css="false" @enter="enter">
+            <p v-if="show">
+                Hello transition
+            </p>
+        </transition>
+    </div>
+    <script>
+    new Vue({
+        el: "#app",
+        data: {
+            show: true
+        },
+        methods: {
+            beforeEnter: function(el) {
+                el.style.opacity = 0;
+                el.style.height = 0;
+
+            },
+            enter: function(el, done) {
+                Velocity(el, {
+                    opacity: 1,
+                    fontSize: "1.4rem",
+                    translateX: "20px",
+                    rotateZ: "45deg"
+                }, {
+                    duration: 500
+                })
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

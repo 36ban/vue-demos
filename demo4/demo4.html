@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>异步获取数据</title>
+    <script src="../vue.js"></script>
+    <script src="../vue-resource@1.3.4.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <task></task>
+    </div>
+    <template id="task-template">
+        <ul>
+            <li v-for="task in list">
+                {{ task.name }} [{{ task.gender }}]
+            </li>
+        </ul>
+    </template>
+    <script>
+    Vue.component("task", {
+        template: "#task-template",
+        props: ["items"],
+        data: function(){
+        	return {
+        		list: []
+        	}
+        },
+        mounted: function() {
+            var me = this;
+            console.log(this)
+            this.$nextTick(function() {
+                me.$http.get('http://localhost/vue.php').then(response => {
+                    me.list = response.body.member;
+                    console.log(response);
+
+                }, response => {
+                    me.list = [];
+                });
+            })
+
+
+        }
+
+    });
+    new Vue({
+        el: "#app",
+
+    })
+    </script>
+</body>
+
+</html>
