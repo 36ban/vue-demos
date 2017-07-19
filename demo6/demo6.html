@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>directive</title>
+	 <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <script src="../vue.js"></script>
+</head>
+<body>
+	<div id="app" v-demo-directive:bgcolor="bgc">
+		
+	</div>
+	<script>
+		Vue.directive('demoDirective', {
+			bind: function(el, binding, vnode){
+				el.style.color = "#fff";
+				el.style.backgroundColor = binding.value;
+				el.innerHTML = "指令名name:" + binding.name + "<br/>" +
+								"指令绑定的值:" + binding.value + "<br/>" +
+								"指令绑定的表达式:" + binding.expression + "<br/>" +
+								"指令绑定的参数:" + binding.arg + "<br/>";
+			}		
+		})
+		new Vue({
+			el: "#app",
+			data: {
+				bgc: "blue"
+			}
+		})
+	</script>
+</body>
+</html>
